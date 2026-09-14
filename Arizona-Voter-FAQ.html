@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Make Sure Your Vote Counts in Arizona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     STATE THEME — Arizona: flag red + copper/gold + desert sand.
+     Variable names kept the same as the template; only hex values
+     are Arizona-specific.
+     ============================================================ */
+  :root{
+    --pine:#B7202E;         /* Arizona flag red — primary */
+    --pine-dark:#7A121C;    /* deeper red for hover/strong text */
+    --birch:#FBF4E3;        /* warm desert sand background */
+    --birch-card:#FFFFFF;
+    --blaze:#F2C000;        /* Arizona flag gold — accent */
+    --blaze-dark:#7A5A00;   /* darker gold for text on gold */
+    --rust:#C1440E;         /* saguaro-flower/copper alt button */
+    --ink:#2A1A12;
+    --slate:#6B5A4E;
+    --line:#E9D9B6;         /* sand-tone border */
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--birch);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:19px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--pine);}
+  .wrap{max-width:640px;margin:0 auto;padding:0 0 4rem;}
+
+  header.top{
+    background:var(--pine);
+    color:#FFF6E1;
+    padding:1.6rem 1.25rem 1.9rem;
+    border-bottom:6px solid var(--blaze);
+    position:relative;
+  }
+  header.top .headtext{
+    max-width:calc(100% - 108px);
+  }
+  .cornerstack{
+    position:absolute;
+    top:1.2rem;
+    right:1.1rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
+  }
+  .cornerstack .moose{
+    width:88px;
+    height:70px;
+    display:block;
+  }
+  header.top .eyebrow{
+    font-size:.85rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--blaze);
+    font-weight:700;
+    margin:0 0 .35rem;
+  }
+  header.top h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:1.8rem;
+    line-height:1.14;
+    margin:0 0 .6rem;
+  }
+  header.top p{
+    margin:0;
+    font-size:1.05rem;
+    color:#F7E8C6;
+    max-width:34ch;
+  }
+
+  .datebadge{
+    background:var(--blaze);
+    border-radius:12px;
+    padding:.5rem .65rem;
+    text-align:center;
+    box-shadow:0 4px 0 rgba(0,0,0,0.08);
+    min-width:74px;
+  }
+  .datebadge .label{
+    font-size:.6rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:var(--blaze-dark);
+    margin:0 0 .2rem;
+  }
+  .datebadge .when{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    line-height:1.15;
+    color:#3A2205;
+    margin:0;
+  }
+
+  nav.pills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.55rem;
+    padding:1.2rem 1rem 1.2rem;
+    justify-content:center;
+  }
+  nav.pills button{
+    flex:0 0 auto;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.88rem;
+    white-space:nowrap;
+    color:var(--pine);
+    background:#fff;
+    border:2px solid var(--line);
+    border-radius:999px;
+    padding:.55rem 1rem;
+    cursor:pointer;
+  }
+  nav.pills button.active{
+    background:var(--pine);
+    border-color:var(--pine);
+    color:#FFF6E1;
+  }
+
+  .group{padding:0 1rem;margin-bottom:1.6rem;}
+  .group h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.15rem;
+    color:var(--pine);
+    margin:0 0 .7rem;
+    padding-left:.15rem;
+  }
+
+  .item{
+    background:var(--birch-card);
+    border:2px solid var(--line);
+    border-left:8px solid var(--pine);
+    border-radius:12px;
+    margin-bottom:.85rem;
+    overflow:hidden;
+  }
+  .item.open{border-left-color:var(--blaze);}
+
+  /* Caution / warning panel — always offset in a distinct color so it stands
+     out from normal FAQ items. Border stays this color whether open or closed.
+     Arizona uses the same flag-gold (--blaze) as the header eyebrow lettering. */
+  .item.caution,
+  .item.caution.open{border-left-color:var(--blaze);}
+  .item.caution button.q .qtext{color:var(--blaze-dark);}
+
+  button.q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:1.05rem 1rem;
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  button.q .qtext{
+    flex:1;
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  button.q .chev{
+    flex:0 0 auto;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--birch);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--pine);
+    transition:transform .18s ease;
+  }
+  .item.open button.q .chev{transform:rotate(45deg);background:var(--blaze);color:var(--blaze-dark);}
+
+  .answer{
+    display:none;
+    padding:0 1.15rem 1.3rem;
+    font-size:1.05rem;
+    color:var(--ink);
+  }
+  .item.open .answer{display:block;}
+  .answer p{margin:0 0 .9rem;}
+  .answer ul{margin:0 0 .9rem;padding-left:1.3rem;}
+  .answer li{margin-bottom:.5rem;}
+  .answer strong{color:var(--pine-dark);}
+
+  .callout{
+    background:#FFF3D6;
+    border:2px solid #F0DDA0;
+    border-radius:10px;
+    padding:.8rem 1rem;
+    margin:0 0 .9rem;
+    font-size:1rem;
+  }
+  .callout .k{display:block;font-weight:700;color:var(--pine);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.2rem;}
+
+  .linkbtn{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    background:var(--pine);
+    color:#FFF6E1 !important;
+    text-decoration:none;
+    font-weight:600;
+    font-size:.98rem;
+    padding:.6rem 1rem;
+    border-radius:999px;
+    margin:.15rem .4rem .15rem 0;
+  }
+  .linkbtn:after{content:"→";}
+  .linkbtn.alt{background:var(--rust);}
+
+  footer{
+    padding:1.5rem 1.25rem 0;
+    color:var(--slate);
+    font-size:.9rem;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       STATE HEADER — Arizona: ringtail mascot + Nov 3, 2026.
+       ============================================================ -->
+  <header class="top">
+    <div class="cornerstack">
+      <!-- Mascot: the ringtail, Arizona's state mammal (designated 1986).
+           Small cat-like body with a long, boldly ring-banded tail. -->
+      <svg class="moose" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Long banded tail sweeping up behind the body -->
+        <path d="M92 74 C118 70 132 50 126 26 C122 10 108 6 100 14"
+              fill="none" stroke="#FBF4E3" stroke-width="10" stroke-linecap="round"/>
+        <path d="M92 74 C118 70 132 50 126 26 C122 10 108 6 100 14"
+              fill="none" stroke="#2A1A12" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+        <!-- Body -->
+        <ellipse cx="60" cy="72" rx="30" ry="18" fill="#F2C000" stroke="#2A1A12" stroke-width="3"/>
+        <!-- Front legs -->
+        <rect x="42" y="82" width="7" height="14" rx="3" fill="#F2C000" stroke="#2A1A12" stroke-width="3"/>
+        <rect x="66" y="82" width="7" height="14" rx="3" fill="#F2C000" stroke="#2A1A12" stroke-width="3"/>
+        <!-- Head -->
+        <ellipse cx="34" cy="52" rx="18" ry="16" fill="#F2C000" stroke="#2A1A12" stroke-width="3"/>
+        <!-- Muzzle -->
+        <ellipse cx="22" cy="58" rx="9" ry="6" fill="#FBF4E3" stroke="#2A1A12" stroke-width="2.5"/>
+        <!-- Ears (big and rounded, ringtail-typical) -->
+        <ellipse cx="26" cy="36" rx="6" ry="9" fill="#F2C000" stroke="#2A1A12" stroke-width="3" transform="rotate(-18 26 36)"/>
+        <ellipse cx="44" cy="36" rx="6" ry="9" fill="#F2C000" stroke="#2A1A12" stroke-width="3" transform="rotate(18 44 36)"/>
+        <!-- Eye mask ring (ringtail has pale eye-rings) -->
+        <circle cx="30" cy="50" r="5" fill="#FBF4E3" stroke="#2A1A12" stroke-width="2"/>
+        <circle cx="30" cy="50" r="2.2" fill="#2A1A12"/>
+        <!-- Nose -->
+        <circle cx="16" cy="58" r="2" fill="#2A1A12"/>
+      </svg>
+      <div class="datebadge">
+        <p class="label">Election</p>
+        <p class="when">Nov 3<br>2026</p>
+      </div>
+    </div>
+    <div class="headtext">
+      <p class="eyebrow">Arizona voter guide</p>
+      <h1>How to make sure your vote counts</h1>
+      <p>Everything you need to register, vote by mail, or vote in person — tap a question to see the answer.</p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       ENGINE — do not need to touch. Pills below are generated
+       automatically from CATEGORIES in the script.
+       ============================================================ -->
+  <nav class="pills" id="pills"></nav>
+
+  <main id="groups"></main>
+
+  <footer id="footerNote"></footer>
+</div>
+
+<script>
+// ============================================================
+// STATE CONTENT — Arizona.
+// Sources drawn from AZ-01 and AZ-06 district dashboards
+// (Apprentice101/az01-dashboard, az06-dashboard) and the
+// underlying Arizona SOS / Maricopa / Pima / statutory sources
+// they cite. Every deadline, phone number, and link points to
+// an official state, county, or statutory source, or to a
+// well-established civic nonprofit tracker.
+// ============================================================
+
+const FOOTER_NOTE = "Vote-center locations and hours can change close to Election Day — check the county elections page again in the last week. Questions about your own registration or ballot? Your County Recorder's office is the fastest answer.";
+
+const DATA = [
+{
+  cat: "register", catLabel: "Register to vote",
+  items: [
+    {
+      q: "Am I registered to vote in Arizona?",
+      a: `<p>Check your registration status, polling place, and party affiliation on the state's voter portal.</p>
+      <a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Check my registration</a>
+      <p style="margin-top:.9rem;">Your <strong>County Recorder</strong> is the person who actually holds your registration record — call them if the portal isn't giving you a clear answer.</p>
+      <div class="callout"><span class="k">Maricopa County Recorder</span><a href="https://recorder.maricopa.gov/" target="_blank" rel="noopener">recorder.maricopa.gov</a></div>
+      <div class="callout"><span class="k">Pima County Recorder</span><a href="https://recorder.pima.gov/" target="_blank" rel="noopener">recorder.pima.gov</a></div>`
+    },
+    {
+      q: "Where do I register to vote?",
+      a: `<p>To register in Arizona you must be a U.S. citizen, an Arizona resident, and 18 or older by Election Day. You can register:</p>
+      <ul>
+        <li><strong>Online</strong>, if you have an Arizona driver license or state ID</li>
+        <li><strong>By mail or in person</strong> using a paper voter registration form, at your County Recorder's office, an MVD (Motor Vehicle Division) office, or many public agencies</li>
+      </ul>
+      <a class="linkbtn" href="https://servicearizona.com/voterRegistration" target="_blank" rel="noopener">Register online (ServiceArizona)</a>
+      <a class="linkbtn alt" href="https://azsos.gov/elections" target="_blank" rel="noopener">AZ Secretary of State — Elections</a>
+      <p style="margin-top:.9rem;"><strong>Documentary proof of citizenship</strong> is required to vote a full Arizona ballot in state and local races. Voters registering on the federal form who don't provide documentary proof are placed on a restricted "federal-only" ballot, which lets them vote in federal races only.</p>`
+    },
+    {
+      q: "What are the deadlines for registering to vote?",
+      a: `<ul>
+        <li><strong>General election registration deadline:</strong> Received by <strong>October 5, 2026</strong> — 29 days before the November 3 general.</li>
+        <li><strong>Online, by mail, or in person:</strong> The postmark isn't enough; your registration must be <em>received</em> by the deadline.</li>
+      </ul>
+      <p>If you moved, changed your name, or changed party since you last voted, submit a new registration by the same deadline.</p>
+      <a class="linkbtn" href="https://azsos.gov/elections" target="_blank" rel="noopener">AZ SOS elections calendar</a>`
+    },
+    {
+      q: "What if I miss the registration deadline?",
+      a: `<p>Arizona does <strong>not</strong> have same-day voter registration. If your registration isn't received by <strong>October 5, 2026</strong>, you won't be able to vote in the November 3 general election in Arizona.</p>
+      <p>You can still register for future elections at any time — once you're on the rolls, your registration stays active as long as your address and name are current.</p>`
+    },
+    {
+      caution: true,
+      q: "A caution for voters",
+      a: `<p><strong>Voter Beware!</strong> The site "votesafe.org" is anything but safe. It collects far more personal information than the government-sponsored site (Vote.org) and since late August sells users' data — such as names and contact information and "inferences" about them — to its business partners. Voters should be cautioned against using that site.</p>
+      <a class="linkbtn alt" href="https://popular.info/p/the-hidden-dangers-of-musks-votesafeorg" target="_blank" rel="noopener">Read the details: Popular Information</a>
+      <p style="margin-top:.9rem;">In all cases, voters should be careful about providing personal information to any site before they read the organization's privacy policy.</p>`
+    },
+  ]
+},
+{
+  cat: "inperson", catLabel: "Vote in person",
+  items: [
+    {
+      q: "Where do I vote on Election Day?",
+      a: `<p>Arizona's biggest counties (including <strong>Maricopa</strong> and <strong>Pima</strong>) use <strong>vote centers</strong>: any registered voter in the county can vote at any open vote center on Election Day, regardless of precinct. Polls close at <strong>7:00 PM local time</strong>.</p>
+      <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa: Where to vote</a>
+      <a class="linkbtn alt" href="https://pima.vote" target="_blank" rel="noopener">Pima County voter portal</a>
+      <p style="margin-top:.9rem;">Live outside Maricopa or Pima? Find your county elections office through the state portal:</p>
+      <a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Find my polling place</a>`
+    },
+    {
+      q: "When does in-person early voting run?",
+      a: `<p>In-person early voting starts <strong>27 days</strong> before Election Day at county vote centers.</p>
+      <ul>
+        <li><strong>Early voting begins:</strong> October 7, 2026</li>
+        <li><strong>Early voting ends:</strong> October 30, 2026 (the Friday before Election Day)</li>
+      </ul>
+      <p>You do not need an appointment or a reason — just walk in with your ID.</p>`
+    },
+    {
+      q: "What ID do I need to bring to the polls?",
+      a: `<p>Arizona voters must present <strong>one</strong> of the following at the polls:</p>
+      <ul>
+        <li><strong>One acceptable photo ID</strong> showing your name and address — an Arizona driver license or state ID, a tribal enrollment card or tribal photo ID, or a U.S. federal, state, or local government-issued photo ID. The address must reasonably match the voter register.</li>
+        <li><strong>Two different non-photo IDs</strong> showing your name and address — for example a utility bill dated within 90 days of the election, a bank or credit union statement, a valid Arizona vehicle registration, an Indian census card, a property tax statement, a recorder's certificate, or a voter registration card. Both addresses must reasonably match the register.</li>
+        <li><strong>One photo ID</strong> whose address doesn't reasonably match the register, <strong>paired with one non-photo ID</strong> whose address does match.</li>
+      </ul>
+      <a class="linkbtn" href="https://elections.maricopa.gov/voting/id-at-the-polls.html" target="_blank" rel="noopener">Maricopa: ID at the polls</a>`
+    },
+    {
+      q: "What if I don't have ID when I show up?",
+      a: `<p>You can still vote a <strong>provisional ballot</strong>. It will only be counted if you provide acceptable ID to the County Recorder by:</p>
+      <ul>
+        <li><strong>7:00 PM on the 5th business day after the general election</strong>, or</li>
+        <li><strong>7:00 PM on the 3rd business day after any other election</strong>.</li>
+      </ul>
+      <p>Bring ID if at all possible — a provisional ballot creates extra steps and can be rejected.</p>`
+    },
+  ]
+},
+{
+  cat: "mail", catLabel: "Vote by mail",
+  items: [
+    {
+      q: "How do I vote by mail? (Early ballot by mail)",
+      a: `<p>Any registered Arizona voter can request a mail ballot ("early ballot") for a single election. Ballots are mailed to your home starting about 27 days before Election Day.</p>
+      <a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Request an early ballot</a>
+      <p style="margin-top:.9rem;">Want a mail ballot for every future election automatically? Sign up for the <strong>Active Early Voting List (AEVL)</strong> and one will be mailed to you for every election you're eligible in.</p>
+      <a class="linkbtn alt" href="https://azsos.gov/elections/voters/early-voting" target="_blank" rel="noopener">AZ SOS — Early voting & AEVL</a>
+      <div class="callout"><span class="k">Mail-ballot request deadline</span>Received by October 23, 2026 — 11 days before Election Day.</div>`
+    },
+    {
+      q: "What do I do with my ballot?",
+      a: `<p>To be counted, your mail ballot must be <strong>received</strong> — not just postmarked — by <strong>7:00 PM on Election Day, November 3, 2026</strong>. Late-arriving ballots are the most common reason ballots get rejected.</p>
+      <p>Options for returning your ballot:</p>
+      <ul>
+        <li><strong>Mail it back early.</strong> The state recommends mailing it at least a week before Election Day.</li>
+        <li><strong>Drop it off at any county vote center</strong> — in Maricopa County, every vote center is also a drop-off site, and Pima County has dedicated early-voting drop-off locations.</li>
+      </ul>
+      <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa drop-off locations</a>
+      <a class="linkbtn alt" href="https://recorder.pima.gov/earlyvotingsites" target="_blank" rel="noopener">Pima drop-off locations</a>
+      <p style="margin-top:.9rem;"><strong>New: optional "ID-verify" lane.</strong> Under 2024 Arizona legislation, when you drop off your mail ballot at a polling place you can choose to wait in line, show a photo ID, and have staff verify your identity right there — bypassing signature verification for your ballot. The lane is optional; you can also just sign the envelope and drop it off with no ID and no wait. In Maricopa's July 2026 primary, roughly 30% of Election Day drop-offs used the ID-verify lane and full signature verification finished about 13 hours after polls closed.</p>`
+    },
+    {
+      q: "How do I track my mail ballot?",
+      a: `<p>Arizona Clean Elections runs a ballot tracker that shows when your ballot was mailed to you and when your county received it back.</p>
+      <a class="linkbtn" href="https://www.azcleanelections.gov/election-and-ballot-tracking" target="_blank" rel="noopener">Track my ballot</a>
+      <p style="margin-top:.9rem;">The tracker updates only after your County Recorder enters the information — it isn't instant. If you're worried about your ballot, call your Recorder directly.</p>`
+    },
+    {
+      q: "What if there's a problem with my signature?",
+      a: `<p>If your signature is missing or doesn't match the one on file, your Recorder will try to contact you. For 2026 federal-office elections, voters have a <strong>five-calendar-day post-election window</strong> to cure signature issues — for the November general that runs through <strong>November 8, 2026</strong>.</p>
+      <p>Answer the call, email, or text quickly if you get one — an uncured signature means the ballot is not counted.</p>`
+    },
+    {
+      q: "Can I vote in person after I've already returned a mail ballot?",
+      a: `<p>Generally no. Once your Recorder has received your mail ballot, you're marked as having voted and can't cast a second ballot at a vote center. If you decide to vote in person instead, bring your <strong>unvoted</strong> mail ballot to the vote center and surrender it, then vote in person there.</p>`
+    },
+  ]
+},
+{
+  cat: "results", catLabel: "After you vote",
+  items: [
+    {
+      q: "When and where do results get posted?",
+      a: `<p>The Arizona Secretary of State publishes unofficial election-night returns as counties report in. Counties then complete their official canvass within about 20 days, and the state canvass certifies the final results.</p>
+      <a class="linkbtn" href="https://azsos.gov/elections/election-information/unofficial-enr" target="_blank" rel="noopener">Live results (AZ SOS)</a>`
+    },
+    {
+      q: "When does Arizona do a recount?",
+      a: `<p>Arizona has <strong>automatic</strong> recounts — they trigger by law when a race margin falls at or below the statutory threshold. There is no separate request or petition for a candidate to file.</p>
+      <a class="linkbtn" href="https://www.azleg.gov/ARStitle/" target="_blank" rel="noopener">Arizona Revised Statutes</a>`
+    },
+  ]
+},
+{
+  cat: "overseas", catLabel: "Military & overseas voters",
+  items: [
+    {
+      q: "I'm in the service or living overseas — what do I do?",
+      a: `<p>Uniformed-service members and U.S. citizens living overseas register and request a ballot under the federal <strong>UOCAVA</strong> process. The fastest path is the Federal Voting Assistance Program's online tools, which also let you fill out and submit a Federal Post Card Application (FPCA) — one form that registers you and requests an absentee ballot for every election within a calendar year.</p>
+      <a class="linkbtn" href="https://www.fvap.gov/" target="_blank" rel="noopener">FVAP — Federal Voting Assistance Program</a>
+      <a class="linkbtn alt" href="https://azsos.gov/elections" target="_blank" rel="noopener">AZ SOS elections info</a>
+      <p style="margin-top:.9rem;">Return your completed FPCA and ballot to your County Recorder in Arizona — the same Recorder you'd interact with if you were voting from home.</p>`
+    },
+  ]
+},
+{
+  cat: "help", catLabel: "Still have questions?",
+  items: [
+    {
+      q: "Who do I call for help with my specific ballot or registration?",
+      a: `<p>Your <strong>County Recorder</strong> is the person who can actually look up your record. In AZ-01 and most of the state's largest voting bloc, that's Maricopa; in AZ-06, most voters are in Pima, with pockets in Cochise, Graham, Greenlee, and Pinal.</p>
+      <div class="callout"><span class="k">Maricopa County Recorder</span><a href="https://recorder.maricopa.gov/" target="_blank" rel="noopener">recorder.maricopa.gov</a></div>
+      <div class="callout"><span class="k">Pima County Recorder</span><a href="https://recorder.pima.gov/" target="_blank" rel="noopener">recorder.pima.gov</a></div>
+      <div class="callout"><span class="k">Cochise County Elections</span><a href="https://www.cochise.az.gov/292/Elections" target="_blank" rel="noopener">cochise.az.gov/Elections</a></div>
+      <div class="callout"><span class="k">Graham County Recorder</span><a href="https://www.graham.az.gov/262/Recorders-Office" target="_blank" rel="noopener">graham.az.gov/Recorders-Office</a></div>`
+    },
+    {
+      q: "General nonpartisan voter help",
+      a: `<p>Two well-established nonpartisan resources for Arizona voters:</p>
+      <a class="linkbtn" href="https://www.azcleanelections.gov/" target="_blank" rel="noopener">AZ Clean Elections</a>
+      <a class="linkbtn alt" href="https://www.vote.org/arizona/" target="_blank" rel="noopener">Vote.org — Arizona</a>`
+    },
+  ]
+},
+];
+
+// ============================================================
+// END STATE CONTENT
+// ============================================================
+
+const groupsEl = document.getElementById('groups');
+document.getElementById('footerNote').textContent = FOOTER_NOTE;
+
+function render(filter){
+  groupsEl.innerHTML = '';
+  DATA.forEach(group => {
+    if(filter !== 'all' && filter !== group.cat) return;
+    const section = document.createElement('section');
+    section.className = 'group';
+    const h2 = document.createElement('h2');
+    h2.textContent = group.catLabel;
+    section.appendChild(h2);
+    group.items.forEach((it, idx) => {
+      const item = document.createElement('div');
+      item.className = 'item' + (it.caution ? ' caution' : '');
+      const btn = document.createElement('button');
+      btn.className = 'q';
+      btn.innerHTML = `<span class="qtext">${it.q}</span><span class="chev">+</span>`;
+      const ans = document.createElement('div');
+      ans.className = 'answer';
+      ans.innerHTML = it.a;
+      btn.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+      item.appendChild(btn);
+      item.appendChild(ans);
+      section.appendChild(item);
+    });
+    groupsEl.appendChild(section);
+  });
+}
+
+// Build the pill nav from DATA, so categories only need to be defined once.
+const pillsEl = document.getElementById('pills');
+const allBtn = document.createElement('button');
+allBtn.className = 'active';
+allBtn.dataset.cat = 'all';
+allBtn.textContent = 'All';
+pillsEl.appendChild(allBtn);
+DATA.forEach(group => {
+  const b = document.createElement('button');
+  b.dataset.cat = group.cat;
+  b.textContent = group.catLabel;
+  pillsEl.appendChild(b);
+});
+
+pillsEl.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if(!b) return;
+  document.querySelectorAll('#pills button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  render(b.dataset.cat);
+});
+
+render('all');
+</script>
+</body>
+</html>
