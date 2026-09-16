@@ -234,13 +234,16 @@
   }
   .linkbtn:after{content:"→";}
 
-  /* Button rows: single = centered; pair = flush left/right; trio = 2 top + 1 centered below */
-  .btnrow{display:flex;flex-wrap:wrap;gap:.5rem .8rem;margin:.6rem 0 .3rem;}
+  /* Button rows: single = centered; pair = flush left/right; trio = 2 top + 1 centered below.
+     Narrow viewports (<=520px) can't fit two full-width buttons side-by-side, so on mobile
+     everything centers cleanly; the split/trio layout kicks in on wider screens. */
+  .btnrow{display:flex;flex-wrap:wrap;gap:.5rem .8rem;margin:.6rem 0 .3rem;justify-content:center;}
   .btnrow .linkbtn{margin:0;}
-  .btnrow.center{justify-content:center;}
-  .btnrow.split{justify-content:space-between;align-items:center;}
-  .btnrow.trio{justify-content:space-between;align-items:center;}
-  .btnrow.trio .linkbtn:nth-child(3){flex-basis:100%;margin:.3rem auto 0;justify-content:center;}
+  @media (min-width: 520px){
+    .btnrow.split{justify-content:space-between;align-items:center;}
+    .btnrow.trio{justify-content:space-between;align-items:center;}
+    .btnrow.trio .linkbtn:nth-child(3){flex-basis:100%;margin:.3rem auto 0;display:flex;justify-content:center;width:fit-content;}
+  }
 
   footer{
     padding:1.5rem 1.25rem 0;
