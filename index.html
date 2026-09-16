@@ -233,7 +233,14 @@
     margin:.15rem .4rem .15rem 0;
   }
   .linkbtn:after{content:"→";}
-  .linkbtn.alt{background:var(--rust);}
+
+  /* Button rows: single = centered; pair = flush left/right; trio = 2 top + 1 centered below */
+  .btnrow{display:flex;flex-wrap:wrap;gap:.5rem .8rem;margin:.6rem 0 .3rem;}
+  .btnrow .linkbtn{margin:0;}
+  .btnrow.center{justify-content:center;}
+  .btnrow.split{justify-content:space-between;align-items:center;}
+  .btnrow.trio{justify-content:space-between;align-items:center;}
+  .btnrow.trio .linkbtn:nth-child(3){flex-basis:100%;margin:.3rem auto 0;justify-content:center;}
 
   footer{
     padding:1.5rem 1.25rem 0;
@@ -320,9 +327,9 @@ const DATA = [
     {
       q: "Am I registered to vote in Arizona?",
       a: `<p>Check your registration status, polling place, and party affiliation on the state's voter portal.</p>
-      <a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Check my registration</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Check my registration</a></div>
       <p style="margin-top:.9rem;">Your <strong>County Recorder</strong> is the person who actually holds your registration record — call them if the portal isn't giving you a clear answer.</p>
-      <a class="linkbtn alt" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Find all County Recorders here</a>`
+      <div class="btnrow center"><a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Find all County Recorders here</a></div>`
     },
     {
       q: "Where do I register to vote?",
@@ -331,7 +338,7 @@ const DATA = [
         <li><strong>Online</strong>, if you have an Arizona driver license or state ID<br><a class="linkbtn" style="margin-top:.5rem;" href="https://servicearizona.com/voterRegistration" target="_blank" rel="noopener">Register online (ServiceArizona)</a></li>
         <li><strong>By mail or in person</strong> using a paper voter registration form, at your County Recorder's office, an MVD (Motor Vehicle Division) office, or many public agencies</li>
       </ul>
-      <a class="linkbtn alt" href="https://arizona.vote" target="_blank" rel="noopener">www.Arizona.Vote</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://arizona.vote" target="_blank" rel="noopener">www.Arizona.Vote</a></div>
       <p style="margin-top:.9rem;">Note: You need <strong>"documentary proof of citizenship"</strong> to vote in all Arizona state and local elections. If you don't have proof and use the federal form to register, you will only be able to vote in federal races for Congressional representatives and the Presidency.</p>`
     },
     {
@@ -341,7 +348,7 @@ const DATA = [
         <li><strong>Online, by mail, or in person:</strong> The postmark isn't enough; your registration must be <em>received</em> by the deadline.</li>
       </ul>
       <p>If you moved, changed your name, or changed party since you last voted, submit a new registration by the same deadline.</p>
-      <a class="linkbtn" href="https://azsos.gov/elections" target="_blank" rel="noopener">AZ SOS elections calendar</a>`
+      <div class="btnrow center"><a class="linkbtn" href="https://azsos.gov/elections" target="_blank" rel="noopener">AZ SOS elections calendar</a></div>`
     },
     {
       q: "What if I miss the registration deadline?",
@@ -352,7 +359,7 @@ const DATA = [
       caution: true,
       q: "A caution for voters",
       a: `<p><strong>Voter Beware!</strong> The site "votesafe.org" is anything but safe. It collects far more personal information than the government-sponsored site (Vote.org) and since late August sells users' data — such as names and contact information and "inferences" about them — to its business partners. Voters should be cautioned against using that site.</p>
-      <a class="linkbtn alt" href="https://popular.info/p/the-hidden-dangers-of-musks-votesafeorg" target="_blank" rel="noopener">Read the details: Popular Information</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://popular.info/p/the-hidden-dangers-of-musks-votesafeorg" target="_blank" rel="noopener">Read the details: Popular Information</a></div>
       <p style="margin-top:.9rem;">In all cases, voters should be careful about providing personal information to any site before they read the organization's privacy policy.</p>`
     },
   ]
@@ -363,10 +370,12 @@ const DATA = [
     {
       q: "Where do I vote on Election Day?",
       a: `<p>Arizona's biggest counties (including <strong>Maricopa</strong> and <strong>Pima</strong>) use <strong>vote centers</strong>: any registered voter in the county can vote at any open vote center on Election Day, regardless of precinct. Polls close at <strong>7:00 PM local time</strong>.</p>
-      <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa: Where to vote</a>
-      <a class="linkbtn alt" href="https://pima.vote" target="_blank" rel="noopener">Pima County voter portal</a>
+      <div class="btnrow split">
+        <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa: Where to vote</a>
+        <a class="linkbtn" href="https://pima.vote" target="_blank" rel="noopener">Pima County voter portal</a>
+      </div>
       <p style="margin-top:.9rem;">Live outside Maricopa or Pima? Find your county elections office through the state portal:</p>
-      <a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Find my polling place</a>`
+      <div class="btnrow center"><a class="linkbtn" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Find my polling place</a></div>`
     },
     {
       q: "When does in-person early voting run?",
@@ -385,7 +394,7 @@ const DATA = [
         <li><strong>Two different non-photo IDs</strong> showing your name and address — for example a utility bill dated within 90 days of the election, a bank or credit union statement, a valid Arizona vehicle registration, an Indian census card, a property tax statement, a recorder's certificate, or a voter registration card. Both addresses must reasonably match the register.</li>
         <li><strong>One photo ID</strong> whose address doesn't reasonably match the register, <strong>paired with one non-photo ID</strong> whose address does match.</li>
       </ul>
-      <a class="linkbtn" href="https://elections.maricopa.gov/voting/id-at-the-polls.html#Forms%20of%20ID:" target="_blank" rel="noopener">Valid ID to use at the AZ polls</a>`
+      <div class="btnrow center"><a class="linkbtn" href="https://elections.maricopa.gov/voting/id-at-the-polls.html#Forms%20of%20ID:" target="_blank" rel="noopener">Valid ID to use at the AZ polls</a></div>`
     },
     {
       q: "What if I don't have ID when I show up?",
@@ -403,10 +412,10 @@ const DATA = [
     {
       q: "How do I vote by mail?",
       a: `<p><strong>Arizona has open, no-excuse mail voting:</strong> Any registered voter can request a ballot for an upcoming election. This year, make your request by <strong>Oct. 23, 2026</strong>.</p>
-      <a class="linkbtn" href="https://my.arizona.vote/Early/ApplicationLogin.aspx" target="_blank" rel="noopener">Request a ballot online</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://my.arizona.vote/Early/ApplicationLogin.aspx" target="_blank" rel="noopener">Request a ballot online</a></div>
       <p style="margin-top:.9rem;"><strong>Out of town?</strong> The Post Office will not forward ballots. Request a ballot to be sent to your current address.</p>
       <p style="margin-top:.9rem;">If you join the <strong>Active Early Voting List (AEVL)</strong>, a ballot will be mailed to you for every election you're eligible to vote in.</p>
-      <a class="linkbtn alt" href="https://azsos.gov/elections/voters/early-voting" target="_blank" rel="noopener">Details on AEVL</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://azsos.gov/elections/voters/early-voting" target="_blank" rel="noopener">Details on AEVL</a></div>
       <div class="callout"><span class="k">Deadline for requesting a mail-in ballot</span>Requests must be received by the county office by <strong>October 23, 2026</strong>. (But don't forget: Your completed ballot is due back on Nov. 3!)</div>`
     },
     {
@@ -417,17 +426,19 @@ const DATA = [
         <li><strong>Mail it back early.</strong> The state recommends you mail your ballot a week before the election (by <strong>October 27</strong>).</li>
         <li><strong>Drop it off at a county vote center.</strong> Find your location here:</li>
       </ul>
-      <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa drop-off locations</a>
-      <a class="linkbtn alt" href="https://recorder.pima.gov/earlyvotingsites" target="_blank" rel="noopener">Pima drop-off locations</a>
-      <a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Other county drop-off locations</a>
+      <div class="btnrow trio">
+        <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa drop-off locations</a>
+        <a class="linkbtn" href="https://recorder.pima.gov/earlyvotingsites" target="_blank" rel="noopener">Pima drop-off locations</a>
+        <a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Other county drop-off locations</a>
+      </div>
       <p style="margin-top:.9rem;"><strong>New: optional "ID-verify" lane.</strong> Under 2024 Arizona legislation, when you drop off your mail ballot at a polling place you can choose to wait in line, show a photo ID, and have staff verify your identity right there — bypassing signature verification for your ballot. The lane is optional; you can also just sign the envelope and drop it off with no ID and no wait.</p>`
     },
     {
       q: "How do I track my mail ballot?",
       a: `<p>You can check with the state here for the status of your ballot:</p>
-      <a class="linkbtn" href="https://my.arizona.vote" target="_blank" rel="noopener">Check ballot status</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://my.arizona.vote" target="_blank" rel="noopener">Check ballot status</a></div>
       <p style="margin-top:.9rem;">You can also get a text alert about your ballot from the state here:</p>
-      <a class="linkbtn alt" href="https://trackmyballot.azsos.gov/voter/" target="_blank" rel="noopener">Sign up for text alerts</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://trackmyballot.azsos.gov/voter/" target="_blank" rel="noopener">Sign up for text alerts</a></div>
       <p style="margin-top:.9rem;">The tracker updates only after your County Recorder enters the information — it isn't instant. If you're worried about your ballot, call your Recorder directly.</p>`
     },
     {
@@ -447,7 +458,7 @@ const DATA = [
     {
       q: "I'm in the service or living overseas — what do I do?",
       a: `<p>Start here:</p>
-      <a class="linkbtn" href="https://app.enhancedvoting.com/ebd/voter/arizona" target="_blank" rel="noopener">Arizona Uniformed & Overseas Citizen Portal</a>`
+      <div class="btnrow center"><a class="linkbtn" href="https://app.enhancedvoting.com/ebd/voter/arizona" target="_blank" rel="noopener">Arizona Uniformed & Overseas Citizen Portal</a></div>`
     },
   ]
 },
@@ -457,7 +468,7 @@ const DATA = [
     {
       q: "Who do I call for help?",
       a: `<p>Your county recorder's office can answer questions about your address or ballot.</p>
-      <a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Find your County Recorder (azsos.gov)</a>
+      <div class="btnrow center"><a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Find your County Recorder (azsos.gov)</a></div>
       <p style="margin-top:.9rem;">Other questions can be answered by the state (<a href="https://arizona.vote" target="_blank" rel="noopener">Arizona.vote</a>). The Arizona Secretary of State's elections line is <strong>1-877-THE-VOTE</strong> (<a href="mailto:elections@azsos.gov">elections@azsos.gov</a>).</p>
       <p style="margin-top:.9rem;">In addition, <a href="https://www.vote411.org/" target="_blank" rel="noopener">Vote411.org</a>, run by the League of Women Voters, has a personalized Arizona ballot lookup and general voting guide.</p>`
     },
