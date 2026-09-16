@@ -223,27 +223,19 @@
     display:inline-flex;
     align-items:center;
     gap:.4rem;
-    background:var(--pine);
+    background:var(--rust);
     color:#FFF6E1 !important;
     text-decoration:none;
     font-weight:600;
     font-size:.98rem;
     padding:.6rem 1rem;
     border-radius:999px;
-    margin:.15rem .4rem .15rem 0;
+    margin:0;
   }
   .linkbtn:after{content:"→";}
 
-  /* Button rows: single = centered; pair = flush left/right; trio = 2 top + 1 centered below.
-     Narrow viewports (<=520px) can't fit two full-width buttons side-by-side, so on mobile
-     everything centers cleanly; the split/trio layout kicks in on wider screens. */
-  .btnrow{display:flex;flex-wrap:wrap;gap:.5rem .8rem;margin:.6rem 0 .3rem;justify-content:center;}
-  .btnrow .linkbtn{margin:0;}
-  @media (min-width: 520px){
-    .btnrow.split{justify-content:space-between;align-items:center;}
-    .btnrow.trio{justify-content:space-between;align-items:center;}
-    .btnrow.trio .linkbtn:nth-child(3){flex-basis:100%;margin:.3rem auto 0;display:flex;justify-content:center;width:fit-content;}
-  }
+  /* Button rows: every button centered on its own line, phone-friendly. */
+  .btnrow{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin:.6rem 0 .3rem;}
 
   footer{
     padding:1.5rem 1.25rem 0;
@@ -338,7 +330,7 @@ const DATA = [
       q: "Where do I register to vote?",
       a: `<p>To register in Arizona you must be a U.S. citizen, an Arizona resident, and 18 or older by Election Day. You can register:</p>
       <ul>
-        <li><strong>Online</strong>, if you have an Arizona driver license or state ID<br><a class="linkbtn" style="margin-top:.5rem;" href="https://servicearizona.com/voterRegistration" target="_blank" rel="noopener">Register online (ServiceArizona)</a></li>
+        <li><strong>Online</strong>, if you have an Arizona driver license or state ID<br><a class="linkbtn" style="margin-top:.5rem;display:inline-flex;" href="https://servicearizona.com/voterRegistration" target="_blank" rel="noopener">Register online (ServiceArizona)</a></li>
         <li><strong>By mail or in person</strong> using a paper voter registration form, at your County Recorder's office, an MVD (Motor Vehicle Division) office, or many public agencies</li>
       </ul>
       <div class="btnrow center"><a class="linkbtn" href="https://arizona.vote" target="_blank" rel="noopener">www.Arizona.Vote</a></div>
@@ -373,7 +365,7 @@ const DATA = [
     {
       q: "Where do I vote on Election Day?",
       a: `<p>Arizona's biggest counties (including <strong>Maricopa</strong> and <strong>Pima</strong>) use <strong>vote centers</strong>: any registered voter in the county can vote at any open vote center on Election Day, regardless of precinct. Polls close at <strong>7:00 PM local time</strong>.</p>
-      <div class="btnrow split">
+      <div class="btnrow">
         <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa: Where to vote</a>
         <a class="linkbtn" href="https://pima.vote" target="_blank" rel="noopener">Pima County voter portal</a>
       </div>
@@ -429,7 +421,7 @@ const DATA = [
         <li><strong>Mail it back early.</strong> The state recommends you mail your ballot a week before the election (by <strong>October 27</strong>).</li>
         <li><strong>Drop it off at a county vote center.</strong> Find your location here:</li>
       </ul>
-      <div class="btnrow trio">
+      <div class="btnrow">
         <a class="linkbtn" href="https://elections.maricopa.gov/voting/where-to-vote.html" target="_blank" rel="noopener">Maricopa drop-off locations</a>
         <a class="linkbtn" href="https://recorder.pima.gov/earlyvotingsites" target="_blank" rel="noopener">Pima drop-off locations</a>
         <a class="linkbtn" href="https://azsos.gov/elections/about-elections/county-election-contact-info" target="_blank" rel="noopener">Other county drop-off locations</a>
